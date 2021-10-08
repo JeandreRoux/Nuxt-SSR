@@ -1,0 +1,26 @@
+{
+  "functions": {
+    "source": "functions",
+    "predeploy": [
+      "npm --prefix src run build && rm -rf functions/nuxt && cp -r src/.nuxt/ functions/nuxt/ && cp src/nuxt.config.js functions/"
+    ]
+  },
+  "hosting": {
+    "site": "nuxt-ssr-test-2021",
+    "public": "public",
+    "predeploy": [
+      "rm -rf public/* && mkdir -p public/_nuxt && cp -r src/.nuxt/dist/client/ public/_nuxt && cp -a src/static/. public/"
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "ssrapp"
+      }
+    ]
+  }
+}
